@@ -22,5 +22,17 @@ const getPost = async (req , res)=>{
       }
 }
 
-module.exports = {getAllposts, getPost}
+const getPostBySender = async (req , res)=>{
+    try {
+      const {sender} = req.query
+        const posts = await postModel.find({sender : sender});
+        if(!posts){
+            return res.status(400).json({ message: "Post not found" });
+        }
+        res.status(200).json(posts);
+      } catch (error) {
+        res.status(500).json({ message: "Error fetching posts", error: error.message });
+      }
+}
+module.exports = {getAllposts, getPost, getPostBySender}
 

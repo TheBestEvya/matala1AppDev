@@ -6,6 +6,8 @@ router.get("/All",postController.getAllposts)
 
 router.get("/:id", postController.getPost)
 
+router.get("/", postController.getPostBySender)
+
 
 
 
