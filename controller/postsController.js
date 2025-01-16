@@ -54,5 +54,16 @@ const updatePost = async(req,res)=>{
         res.status(500).json({ message: "Error updating Post", error: error.message });
       }
 }
-module.exports = {getAllposts, getPost, getPostBySender, createPost, updatePost}
+
+const deletePost = async(req,res)=>{
+    try {
+        const { id } = req.body; 
+        await commentModel.deleteMany({postId : id})
+        await postModel.findByIdAndDelete(id);
+        res.status(200).json({ message : "Post deleted successfully" });
+      } catch (error) {
+        res.status(500).json({ message: "Error deleting Post", error: error.message });
+      }
+}
+module.exports = {getAllposts, getPost, getPostBySender, createPost, updatePost, deletePost}
 
