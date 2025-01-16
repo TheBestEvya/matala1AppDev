@@ -8,6 +8,8 @@ router.get("/:id", postController.getPost)
 
 router.get("/", postController.getPostBySender)
 
+router.post("/create", postController.createPost)
+
 
 
 
