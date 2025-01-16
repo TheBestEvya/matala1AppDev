@@ -8,6 +8,8 @@ router.get("/:id", userController.getUser)
 
 router.post("/create", userController.createUser)
 
+router.put("/update", userController.updateUser)
+
 
 
 module.exports = router;
