@@ -1,4 +1,4 @@
-const {commentModel} = require("../model/commentModel.js");  // Assuming your model is in the 'model' folder
+const {commentModel} = require("../model/commentModel.js");  // Importing the commentModel
 const {postModel} = require("../model/postModel.js");
 const { post } = require("../routes/postsRouter.js");
 
@@ -58,5 +58,23 @@ const getAllComments = async (req, res) => {
     }
   };
 
+  const deleteComment = async (req, res) => {
+    try {
+      const { id } = req.body;
+      const comment = await commentModel.findByIdAndDelete(id);
+      if (!comment) {
+        res.status(400).json({message : "Comment not found!"});
+        return;
+      }
+      const post = await postModel.findById(comment.postId);
+      post.comments = post.comments.filter(comment => comment._id != id);
+      await post.save(); 
+  
+      res.status(200).json({ message: "Comment deleted successfully" });
+    } catch (error) {
+      res.status(400).json({ message: "Error deleting comment", error: error.message });
+    }
+  };
 
-  module.exports = {getAllComments , getComment , createComment}
+
+  module.exports = {getAllComments , getComment , createComment , updateComment , deleteComment};
