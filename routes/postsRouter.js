@@ -10,6 +10,8 @@ router.get("/", postController.getPostBySender)
 
 router.post("/create", postController.createPost)
 
+router.put("/update/:id", postController.updatePost)
+
 
 
 
